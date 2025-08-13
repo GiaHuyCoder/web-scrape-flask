@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Web Scraper Tin Tức</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <h2>🔍Tìm kiếm tin tức từ VnExpress</h2>
+    <form method="POST">
+      <input
+        type="text"
+        name="keyword"
+        placeholder="Nhập từ khóa..."
+        value="{{ keyword }}"
+      />
+      <button type="submit">Tìm kiếm</button>
+    </form>
+
+    <hr />
+    {% if error_message %}
+    <p style="color: red;">{{ error_message}}</p>
+    {% endif %} {% if results %}
+    <h3>Kết quả cho từ khóa "{{ keyword }}":</h3>
+    <ul>
+      {% for item in results %}
+      <li><a href="{{ item.link }}" target="_blank">{{item.title}}</a></li>
+      {% endfor %}
+    </ul>
+    {% elif keyword %}
+    <p>Không tìm thấy kết quả.</p>
+    {% endif %}
+  </body>
+</html>
